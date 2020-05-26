@@ -3,8 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    tools:context=".texture.ImageMultiEffectActivity">
+    android:orientation="vertical">
     <android.opengl.GLSurfaceView
         android:id="@+id/gl_view"
         android:layout_width="match_parent"

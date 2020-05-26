@@ -1,39 +1,19 @@
 package com.android.hq.androidopenglesdemo.texture;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.opengl.GLSurfaceView;
-import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.android.hq.androidopenglesdemo.BasicGLSurfaceViewActivity;
 import com.android.hq.androidopenglesdemo.R;
 
-public class ImageMultiEffectActivity extends AppCompatActivity {
-    private GLSurfaceView mGLSurfaceView;
+public class ImageMultiEffectActivity extends BasicGLSurfaceViewActivity {
     private ImageMultiEffectRenderer mRenderer;
+
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_image_multi_effect);
-        mGLSurfaceView = findViewById(R.id.gl_view);
+    public GLSurfaceView.Renderer getRenderer() {
         mRenderer = new ImageMultiEffectRenderer(this);
-
-        mGLSurfaceView.setEGLContextClientVersion(2);
-        mGLSurfaceView.setRenderer(mRenderer);
-        mGLSurfaceView.setRenderMode(GLSurfaceView.RENDERMODE_WHEN_DIRTY);
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        mGLSurfaceView.onResume();
-    }
-
-    @Override
-    protected void onPause() {
-        super.onPause();
-        mGLSurfaceView.onPause();
+        return mRenderer;
     }
 
     @Override

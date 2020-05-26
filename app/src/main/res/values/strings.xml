@@ -3,4 +3,7 @@
 
     <string name="title_image_multi_effect_activity">图片效果处理</string>
     <string name="desc_image_multi_effect_activity">实现图片的一些滤镜效果：黑白、冷色调、暖色调、模糊处理、放大镜等，还有处理一半效果实现对比</string>
+
+    <string name="title_square_activity">绘制基本图形</string>
+    <string name="desc_square_activity">介绍点、线、三角形、正方形的绘制方法</string>
 </resources>

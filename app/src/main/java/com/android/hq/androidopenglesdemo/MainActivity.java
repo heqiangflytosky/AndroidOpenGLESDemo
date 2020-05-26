@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
 
+import com.android.hq.androidopenglesdemo.shape.SquareActivity;
 import com.android.hq.androidopenglesdemo.texture.ImageMultiEffectActivity;
 
 import java.util.ArrayList;
@@ -29,6 +30,8 @@ public class MainActivity extends AppCompatActivity {
 
     private void setData() {
         ArrayList<ListAdapter.DataBean> list = new ArrayList<>();
+        list.add(new ListAdapter.DataBean(getResources().getString(R.string.title_square_activity),
+                getResources().getString(R.string.desc_square_activity), SquareActivity.class));
         list.add(new ListAdapter.DataBean(getResources().getString(R.string.title_image_multi_effect_activity),
                 getResources().getString(R.string.desc_image_multi_effect_activity), ImageMultiEffectActivity.class));
 
