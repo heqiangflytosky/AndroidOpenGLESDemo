@@ -53,6 +53,12 @@ public class ImageMultiEffectActivity extends BasicGLSurfaceViewActivity {
             case R.id.mMagn:
                 mRenderer.setFilter(4, new float[]{0.0f,0.0f,0.4f});
                 break;
+            case R.id.mRelief:
+                mRenderer.setFilter(5, new float[]{0.2125f, 0.7154f, 0.0721f});
+                break;
+            case R.id.mMosaic:
+                mRenderer.setFilter(6, new float[]{0, 0, 0});
+                break;
         }
         mGLSurfaceView.requestRender();
         return super.onOptionsItemSelected(item);
