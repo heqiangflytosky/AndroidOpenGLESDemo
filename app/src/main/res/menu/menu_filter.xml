@@ -4,7 +4,7 @@
     <item android:id="@+id/mDeal"
         app:showAsAction="always"
         android:title="全部处理" />
-    <item android:id="@+id/mDefault"
+    <item android:id="@+id/mNoFilter"
         android:title="原图" />
     <item android:id="@+id/mGray"
         android:title="黑白" />
@@ -20,4 +20,6 @@
         android:title="浮雕" />
     <item android:id="@+id/mMosaic"
         android:title="马赛克" />
+    <item android:id="@+id/mTextWater"
+        android:title="文字水印" />
 </menu>

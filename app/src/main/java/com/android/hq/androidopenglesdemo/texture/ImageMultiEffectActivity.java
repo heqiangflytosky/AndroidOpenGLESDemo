@@ -35,29 +35,37 @@ public class ImageMultiEffectActivity extends BasicGLSurfaceViewActivity {
                     item.setTitle("全部处理");
                 }
                 break;
-            case R.id.mDefault:
-                mRenderer.setDefaultFilter();
+            case R.id.mNoFilter:
+                //mRenderer.setDefaultFilter();
+                mRenderer.setFilter(new NoFilter(this));
                 break;
             case R.id.mGray:
-                mRenderer.setFilter(1, new float[]{0.299f,0.587f,0.114f});
+                //mRenderer.setFilter(1, new float[]{0.299f,0.587f,0.114f});
+                mRenderer.setFilter(new GrayFilter(this));
                 break;
             case R.id.mCool:
-                mRenderer.setFilter(2, new float[]{0.0f,0.0f,0.1f});
+                //mRenderer.setFilter(2, new float[]{0.0f,0.0f,0.1f});
+                mRenderer.setFilter(new CoolFilter(this));
                 break;
             case R.id.mWarm:
-                mRenderer.setFilter(2, new float[]{0.1f,0.1f,0.0f});
+                //mRenderer.setFilter(2, new float[]{0.1f,0.1f,0.0f});
+                mRenderer.setFilter(new WarmFilter(this));
                 break;
             case R.id.mBlur:
-                mRenderer.setFilter(3, new float[]{0.006f,0.004f,0.002f});
+                //mRenderer.setFilter(3, new float[]{0.006f,0.004f,0.002f});
+                mRenderer.setFilter(new BlurFilter(this));
                 break;
             case R.id.mMagn:
-                mRenderer.setFilter(4, new float[]{0.0f,0.0f,0.4f});
+                //mRenderer.setFilter(4, new float[]{0.0f,0.0f,0.4f});
+                mRenderer.setFilter(new MagnFilter(this));
                 break;
             case R.id.mRelief:
-                mRenderer.setFilter(5, new float[]{0.2125f, 0.7154f, 0.0721f});
+                //mRenderer.setFilter(5, new float[]{0.2125f, 0.7154f, 0.0721f});
+                mRenderer.setFilter(new ReliefFilter(this));
                 break;
             case R.id.mMosaic:
-                mRenderer.setFilter(6, new float[]{0, 0, 0});
+                //mRenderer.setFilter(6, new float[]{0, 0, 0});
+                mRenderer.setFilter(new MosaicFilter(this));
                 break;
         }
         mGLSurfaceView.requestRender();

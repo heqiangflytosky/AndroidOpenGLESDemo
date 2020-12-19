@@ -2,7 +2,6 @@ package com.android.hq.androidopenglesdemo.texture;
 
 import android.content.Context;
 import android.opengl.GLES20;
-import android.opengl.GLSurfaceView;
 
 import com.android.hq.androidopenglesdemo.R;
 import com.android.hq.androidopenglesdemo.utils.Constants;
@@ -14,11 +13,9 @@ import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
 import java.nio.FloatBuffer;
 
-import javax.microedition.khronos.egl.EGLConfig;
 import javax.microedition.khronos.opengles.GL10;
 
-public class ImageMultiEffectRenderer implements GLSurfaceView.Renderer  {
-    private Context mContext;
+public abstract class Filter {
     private static final float[] vertexData = {
             // Order of coordinates: X,Y,S,T
             // 第一个三角形
@@ -37,7 +34,7 @@ public class ImageMultiEffectRenderer implements GLSurfaceView.Renderer  {
     protected static final String U_TEXTURE_UNIT = "u_TextureUnit";
     protected static final String A_POSITION = "a_Position";
     protected static final String A_TEXTURE_COORDINATES = "a_TextureCoordinates";
-    protected static final String U_CHANGE_TYPE = "u_ChangeType";
+    //protected static final String U_CHANGE_TYPE = "u_ChangeType";
     protected static final String U_CHANGE_COLOR = "u_ChangeColor";
     protected static final String U_XY = "u_XY";
     protected static final String U_IS_HALF = "u_IsHalf";
@@ -49,25 +46,27 @@ public class ImageMultiEffectRenderer implements GLSurfaceView.Renderer  {
     private int uTextureUnitLocation;
     private int aPositionLocation;
     private int aTextureCoordinatesLocation;
-    private int uChangeType;
+    //private int uChangeType;
     private int uChangeColor;
     private int uXY;
     private int uIsHalf;
 
-    private int mType = 0;
-    private float[] mData = new float[]{0.0f,0.0f,0.0f};
-    private float mXY;
+    //protected int mType = 0;
+    //private float[] mData = new float[]{0.0f,0.0f,0.0f};
+    protected float mXY;
     private boolean mIsHalf;
 
-    private Filter mFilter;
+    private Context mContext;
+    private String mVertexShader;
+    private String mFragmentShader;
 
-    public ImageMultiEffectRenderer(Context context) {
+    public Filter(Context context,String vertexShader, String fragmentShader) {
         mContext = context;
-        mFilter = new NoFilter(context);
+        mVertexShader = vertexShader;
+        mFragmentShader = fragmentShader;
     }
-    @Override
-    public void onSurfaceCreated(GL10 gl, EGLConfig config) {
-        /*
+
+    public void initFilter() {
         GLES20.glClearColor(0.0f,0,0,0);
 
         vertexDataBuffer = ByteBuffer
@@ -76,8 +75,8 @@ public class ImageMultiEffectRenderer implements GLSurfaceView.Renderer  {
                 .asFloatBuffer()
                 .put(vertexData);
 
-        int vertexShader= ShaderHelper.compileVertexShader(Utils.assetsFileLoader(mContext, "filter/texture_multi_effect_vertex_shader.glsl"));
-        int fragmentShader=ShaderHelper.compileFragmentShader(Utils.assetsFileLoader(mContext,"filter/texture_multi_effect_fragment_shader.glsl"));
+        int vertexShader= ShaderHelper.compileVertexShader(mVertexShader);
+        int fragmentShader=ShaderHelper.compileFragmentShader(mFragmentShader);
 
         programeId = ShaderHelper.linkPrograme(vertexShader,fragmentShader);
         ShaderHelper.validatePrograme(programeId);
@@ -85,7 +84,7 @@ public class ImageMultiEffectRenderer implements GLSurfaceView.Renderer  {
         this.uTextureUnitLocation=GLES20.glGetUniformLocation(programeId,U_TEXTURE_UNIT);
         this.aPositionLocation=GLES20.glGetAttribLocation(programeId, A_POSITION);
         this.aTextureCoordinatesLocation= GLES20.glGetAttribLocation(programeId,A_TEXTURE_COORDINATES);
-        this.uChangeType = GLES20.glGetUniformLocation(programeId, U_CHANGE_TYPE);
+        //this.uChangeType = GLES20.glGetUniformLocation(programeId, U_CHANGE_TYPE);
         this.uChangeColor = GLES20.glGetUniformLocation(programeId, U_CHANGE_COLOR);
         this.uXY = GLES20.glGetUniformLocation(programeId, U_XY);
         this.uIsHalf = GLES20.glGetUniformLocation(programeId, U_IS_HALF);
@@ -112,60 +111,47 @@ public class ImageMultiEffectRenderer implements GLSurfaceView.Renderer  {
         GLES20.glVertexAttribPointer(aTextureCoordinatesLocation, TEXTURE_COORDINATES_COMPONENT_COUNT, GLES20.GL_FLOAT, false, 16, vertexDataBuffer);
         GLES20.glEnableVertexAttribArray(aTextureCoordinatesLocation);
 
-        setDefaultFilter();
-        */
+        //setDefaultFilter();
     }
 
-    @Override
+
     public void onSurfaceChanged(GL10 gl, int width, int height) {
-        mFilter.onSurfaceChanged(gl, width, height);
-        /*
         GLES20.glViewport(0,0,width,height);
         mXY = width/(float)height;
-        */
     }
 
-    @Override
-    public void onDrawFrame(GL10 gl) {
-        mFilter.onDrawFrame();
-        /*
+    public void onDrawFrame() {
+        initFilter();
+
         GLES20.glClear(GLES20.GL_COLOR_BUFFER_BIT);
         doFilter();
         GLES20.glDrawArrays(GLES20.GL_TRIANGLES,0,6);
-        */
     }
 
     private void doFilter() {
-        GLES20.glUniform1i(uChangeType, mType);
-        GLES20.glUniform3fv(uChangeColor,1,mData,0);
+        //GLES20.glUniform1i(uChangeType, mType);
+        GLES20.glUniform3fv(uChangeColor,1,getData(),0);
         GLES20.glUniform1f(uXY,mXY);
         GLES20.glUniform1i(uIsHalf,mIsHalf ? 1 : 0);
     }
 
-    public void setFilter(int type, float[] data) {
-        mType = type;
-        mData = data;
+//    public void setFilter(int type, float[] data) {
+//        mType = type;
+//        mData = data;
+//    }
 
-    }
-
-    public void setDefaultFilter() {
-        mType = 0;
-        mData = new float[]{0.0f,0.0f,0.0f};
-    }
+//    public void setDefaultFilter() {
+//        mType = 0;
+//        mData = new float[]{0.0f,0.0f,0.0f};
+//    }
 
     public void setHalfMode(boolean isHalf) {
         mIsHalf = isHalf;
-        mFilter.setHalfMode(isHalf);
     }
 
     public boolean isHalfMode() {
-        // return mIsHalf;
-        return mFilter.isHalfMode();
+        return mIsHalf;
     }
 
-    public void setFilter(Filter filter) {
-        mFilter = filter;
-        mFilter.setHalfMode(mIsHalf);
-    }
-
+    public abstract float[] getData();
 }
