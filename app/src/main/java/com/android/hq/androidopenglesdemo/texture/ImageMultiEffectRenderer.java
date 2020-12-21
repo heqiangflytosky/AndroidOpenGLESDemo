@@ -67,6 +67,7 @@ public class ImageMultiEffectRenderer implements GLSurfaceView.Renderer  {
     }
     @Override
     public void onSurfaceCreated(GL10 gl, EGLConfig config) {
+        mFilter.onSurfaceCreated(gl, config);
         /*
         GLES20.glClearColor(0.0f,0,0,0);
 
@@ -134,6 +135,8 @@ public class ImageMultiEffectRenderer implements GLSurfaceView.Renderer  {
         GLES20.glDrawArrays(GLES20.GL_TRIANGLES,0,6);
         */
     }
+
+
 
     private void doFilter() {
         GLES20.glUniform1i(uChangeType, mType);

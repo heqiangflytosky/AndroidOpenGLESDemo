@@ -12,6 +12,7 @@ import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
 import java.nio.FloatBuffer;
 
+import javax.microedition.khronos.egl.EGLConfig;
 import javax.microedition.khronos.opengles.GL10;
 
 public abstract class Filter {
@@ -115,6 +116,11 @@ public abstract class Filter {
         GLES20.glEnableVertexAttribArray(aTextureCoordinatesLocation);
 
         //setDefaultFilter();
+    }
+
+    public void onSurfaceCreated(GL10 gl, EGLConfig config) {
+        this.init();
+        mIsInited = true;
     }
 
 
