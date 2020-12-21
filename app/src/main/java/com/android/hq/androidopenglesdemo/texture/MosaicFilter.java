@@ -18,4 +18,9 @@ public class MosaicFilter extends Filter {
     public float[] getData() {
         return new float[]{0, 0, 0};
     }
+
+    @Override
+    public void filter() {
+
+    }
 }

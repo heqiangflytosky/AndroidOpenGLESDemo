@@ -7,7 +7,6 @@ import com.android.hq.androidopenglesdemo.R;
 import com.android.hq.androidopenglesdemo.utils.Constants;
 import com.android.hq.androidopenglesdemo.utils.ShaderHelper;
 import com.android.hq.androidopenglesdemo.utils.TextureHelper;
-import com.android.hq.androidopenglesdemo.utils.Utils;
 
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
@@ -36,29 +35,31 @@ public abstract class Filter {
     protected static final String A_TEXTURE_COORDINATES = "a_TextureCoordinates";
     //protected static final String U_CHANGE_TYPE = "u_ChangeType";
     protected static final String U_CHANGE_COLOR = "u_ChangeColor";
-    protected static final String U_XY = "u_XY";
+    //protected static final String U_XY = "u_XY";
     protected static final String U_IS_HALF = "u_IsHalf";
 
     private FloatBuffer vertexDataBuffer;
     private int textureId;
-    private int programeId;
+    protected int programeId;
 
     private int uTextureUnitLocation;
     private int aPositionLocation;
     private int aTextureCoordinatesLocation;
     //private int uChangeType;
     private int uChangeColor;
-    private int uXY;
+    //private int uXY;
     private int uIsHalf;
 
     //protected int mType = 0;
     //private float[] mData = new float[]{0.0f,0.0f,0.0f};
-    protected float mXY;
+    //protected float mXY;
     private boolean mIsHalf;
 
     private Context mContext;
     private String mVertexShader;
     private String mFragmentShader;
+
+    private boolean mIsInited;
 
     public Filter(Context context,String vertexShader, String fragmentShader) {
         mContext = context;
@@ -66,7 +67,7 @@ public abstract class Filter {
         mFragmentShader = fragmentShader;
     }
 
-    public void initFilter() {
+    public void init() {
         GLES20.glClearColor(0.0f,0,0,0);
 
         vertexDataBuffer = ByteBuffer
@@ -86,8 +87,10 @@ public abstract class Filter {
         this.aTextureCoordinatesLocation= GLES20.glGetAttribLocation(programeId,A_TEXTURE_COORDINATES);
         //this.uChangeType = GLES20.glGetUniformLocation(programeId, U_CHANGE_TYPE);
         this.uChangeColor = GLES20.glGetUniformLocation(programeId, U_CHANGE_COLOR);
-        this.uXY = GLES20.glGetUniformLocation(programeId, U_XY);
+        //this.uXY = GLES20.glGetUniformLocation(programeId, U_XY);
         this.uIsHalf = GLES20.glGetUniformLocation(programeId, U_IS_HALF);
+
+        initFilter();
 
         GLES20.glUseProgram(programeId);
 
@@ -117,11 +120,14 @@ public abstract class Filter {
 
     public void onSurfaceChanged(GL10 gl, int width, int height) {
         GLES20.glViewport(0,0,width,height);
-        mXY = width/(float)height;
+        //mXY = width/(float)height;
     }
 
     public void onDrawFrame() {
-        initFilter();
+        if (!mIsInited) {
+            this.init();
+            mIsInited = true;
+        }
 
         GLES20.glClear(GLES20.GL_COLOR_BUFFER_BIT);
         doFilter();
@@ -131,7 +137,8 @@ public abstract class Filter {
     private void doFilter() {
         //GLES20.glUniform1i(uChangeType, mType);
         GLES20.glUniform3fv(uChangeColor,1,getData(),0);
-        GLES20.glUniform1f(uXY,mXY);
+        //GLES20.glUniform1f(uXY,mXY);
+        filter();
         GLES20.glUniform1i(uIsHalf,mIsHalf ? 1 : 0);
     }
 
@@ -153,5 +160,8 @@ public abstract class Filter {
         return mIsHalf;
     }
 
+    public void initFilter(){}
+
     public abstract float[] getData();
+    public abstract void filter();
 }

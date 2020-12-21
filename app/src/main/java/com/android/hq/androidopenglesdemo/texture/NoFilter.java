@@ -19,4 +19,9 @@ public class NoFilter extends Filter {
     public float[] getData() {
         return new float[]{0.0f,0.0f,0.0f};
     }
+
+    @Override
+    public void filter() {
+
+    }
 }

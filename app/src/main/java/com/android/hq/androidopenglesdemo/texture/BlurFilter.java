@@ -18,4 +18,9 @@ public class BlurFilter extends Filter {
     public float[] getData() {
         return new float[]{0.006f,0.004f,0.002f};
     }
+
+    @Override
+    public void filter() {
+
+    }
 }

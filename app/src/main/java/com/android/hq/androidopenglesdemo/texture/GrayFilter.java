@@ -18,4 +18,9 @@ public class GrayFilter extends Filter {
     public float[] getData() {
         return new float[]{0.299f,0.587f,0.114f};
     }
+
+    @Override
+    public void filter() {
+
+    }
 }

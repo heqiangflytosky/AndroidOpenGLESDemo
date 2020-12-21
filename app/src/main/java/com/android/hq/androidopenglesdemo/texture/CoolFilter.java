@@ -18,4 +18,9 @@ public class CoolFilter extends Filter {
     public float[] getData() {
         return new float[]{0.0f,0.0f,0.1f};
     }
+
+    @Override
+    public void filter() {
+
+    }
 }

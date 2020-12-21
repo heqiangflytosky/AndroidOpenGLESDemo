@@ -18,4 +18,9 @@ public class ReliefFilter extends Filter {
     public float[] getData() {
         return new float[]{0.2125f, 0.7154f, 0.0721f};
     }
+
+    @Override
+    public void filter() {
+
+    }
 }
