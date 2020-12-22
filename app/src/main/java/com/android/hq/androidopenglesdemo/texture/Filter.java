@@ -98,14 +98,6 @@ public abstract class Filter {
         // 加载纹理
         textureId = TextureHelper.loadTexture(mContext, R.drawable.timg);
 
-        // 激活纹理单元，GL_TEXTURE0代表纹理单元0，GL_TEXTURE1代表纹理单元1，以此类推。OpenGL使用纹理单元来表示被绘制的纹理
-        GLES20.glActiveTexture(GLES20.GL_TEXTURE0);
-        // 绑定纹理到这个纹理单元
-        GLES20.glBindTexture(GLES20.GL_TEXTURE_2D, textureId);
-        // 把选定的纹理单元传给片段着色器中的 u_TextureUnit，对应前面设置的 GL_TEXTUREi，设置为 GL_TEXTURE0，这里就设置0
-        GLES20.glUniform1i(uTextureUnitLocation, 0);
-
-
         // 传递矩形顶点坐标
         vertexDataBuffer.position(0);
         GLES20.glVertexAttribPointer(aPositionLocation, POSITION_COMPONENT_COUNT, GLES20.GL_FLOAT, false, 16, vertexDataBuffer);
@@ -136,7 +128,17 @@ public abstract class Filter {
         }
 
         GLES20.glClear(GLES20.GL_COLOR_BUFFER_BIT);
+
+        // 绘制纹理
+        // 激活纹理单元，GL_TEXTURE0代表纹理单元0，GL_TEXTURE1代表纹理单元1，以此类推。OpenGL使用纹理单元来表示被绘制的纹理
+        GLES20.glActiveTexture(GLES20.GL_TEXTURE0);
+        // 绑定纹理到这个纹理单元
+        GLES20.glBindTexture(GLES20.GL_TEXTURE_2D, textureId);
+        // 把选定的纹理单元传给片段着色器中的 u_TextureUnit，对应前面设置的 GL_TEXTUREi，设置为 GL_TEXTURE0，这里就设置0
+        GLES20.glUniform1i(uTextureUnitLocation, 0);
+
         doFilter();
+
         GLES20.glDrawArrays(GLES20.GL_TRIANGLES,0,6);
     }
 
