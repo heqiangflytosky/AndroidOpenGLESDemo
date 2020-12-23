@@ -54,12 +54,16 @@ public class TextureHelper {
         GLES20.glTexParameteri(GLES20.GL_TEXTURE_2D, GLES20.GL_TEXTURE_MAG_FILTER, GLES20.GL_LINEAR);
 
         //ARGB
-        ByteBuffer bitmapBuffer = ByteBuffer.allocate(bitmap.getHeight() * bitmap.getWidth() * 4);
-        bitmap.copyPixelsToBuffer(bitmapBuffer);
-        bitmapBuffer.flip();
+//        ByteBuffer bitmapBuffer = ByteBuffer.allocate(bitmap.getHeight() * bitmap.getWidth() * 4);
+//        bitmap.copyPixelsToBuffer(bitmapBuffer);
+//        bitmapBuffer.flip();
+//
+//        GLES20.glTexImage2D(GLES20.GL_TEXTURE_2D, 0, GLES20.GL_RGBA, bitmap.getWidth(),
+//                bitmap.getHeight(), 0, GLES20.GL_RGBA, GLES20.GL_UNSIGNED_BYTE, bitmapBuffer);
 
-        GLES20.glTexImage2D(GLES20.GL_TEXTURE_2D, 0, GLES20.GL_RGBA, bitmap.getWidth(),
-                bitmap.getHeight(), 0, GLES20.GL_RGBA, GLES20.GL_UNSIGNED_BYTE, bitmapBuffer);
+        GLUtils.texImage2D(GLES20.GL_TEXTURE_2D,0,bitmap,0);
+        bitmap.recycle();
+
         //解绑纹理
         GLES20.glBindTexture(GLES20.GL_TEXTURE_2D, 0);
         return textureIds[0];

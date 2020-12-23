@@ -10,8 +10,11 @@ import com.android.hq.androidopenglesdemo.utils.Utils;
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
 import java.nio.FloatBuffer;
+import java.text.SimpleDateFormat;
+import java.util.Locale;
 
 public class WaterFilter extends Filter {
+    private SimpleDateFormat TIME_MARK_FORMATTER = new SimpleDateFormat("yyyy-MM-dd  HH:mm", Locale.ENGLISH);
     private static final String U_TEXTURE_WATER = "u_TextureWater";
     private static final String A_TEXTURE_WATER_LOCATION = "a_TextureWaterCoordinates";
     private Context mContext;
@@ -24,13 +27,13 @@ public class WaterFilter extends Filter {
             // Order of coordinates: S,T
             // 第一个三角形
              -4f, 1f,
-            1f, -6f,
-            -4f, -6f,
+            1f, -16f,
+            -4f, -16f,
 
             // 第二个三角形
              -4f, 1f,
             1f, 1f,
-            1f, -6f
+            1f, -16f
     };
     public WaterFilter(Context context) {
         super(context,
@@ -55,7 +58,8 @@ public class WaterFilter extends Filter {
                 .asFloatBuffer()
                 .put(vertexData);
 
-        Bitmap bitmap = Utils.createTextImage("水印示例", 40, "#ffff0000", "#00000000", 0);
+        String time = TIME_MARK_FORMATTER.format(System.currentTimeMillis());
+        Bitmap bitmap = Utils.createTextImage(time, 40, "#ffffffff", "#00000000", 0);
         // 加载水印纹理
         waterTextureId = TextureHelper.loadBitmapTexture(bitmap);
         uTextureWater =GLES20.glGetUniformLocation(programeId,U_TEXTURE_WATER);
