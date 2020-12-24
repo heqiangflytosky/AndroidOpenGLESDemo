@@ -2,7 +2,9 @@ package com.android.hq.androidopenglesdemo.texture;
 
 import android.content.Context;
 
-import com.android.hq.androidopenglesdemo.utils.Utils;
+/**
+ * 暖色调效果
+ */
 
 public class WarmFilter extends CoolFilter {
     public WarmFilter(Context context) {

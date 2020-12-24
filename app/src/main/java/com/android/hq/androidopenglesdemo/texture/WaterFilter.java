@@ -13,6 +13,10 @@ import java.nio.FloatBuffer;
 import java.text.SimpleDateFormat;
 import java.util.Locale;
 
+/**
+ * 水印效果
+ */
+
 public class WaterFilter extends Filter {
     private SimpleDateFormat TIME_MARK_FORMATTER = new SimpleDateFormat("yyyy-MM-dd  HH:mm", Locale.ENGLISH);
     private static final String U_TEXTURE_WATER = "u_TextureWater";

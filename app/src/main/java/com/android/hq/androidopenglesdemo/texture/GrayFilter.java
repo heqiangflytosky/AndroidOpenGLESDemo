@@ -4,15 +4,15 @@ import android.content.Context;
 
 import com.android.hq.androidopenglesdemo.utils.Utils;
 
+/**
+ * 黑白色调效果
+ */
+
 public class GrayFilter extends Filter {
     public GrayFilter(Context context) {
-//        super(context,
-//                Utils.assetsFileLoader(context,"filter/texture_multi_effect_vertex_shader.glsl"),
-//                Utils.assetsFileLoader(context,"filter/texture_multi_effect_fragment_shader.glsl"));
         super(context,
                 Utils.assetsFileLoader(context,"filter/vertex_shader.glsl"),
                 Utils.assetsFileLoader(context,"filter/fragment_shader_gray_filter.glsl"));
-//        mType = 1;
     }
     @Override
     public float[] getData() {

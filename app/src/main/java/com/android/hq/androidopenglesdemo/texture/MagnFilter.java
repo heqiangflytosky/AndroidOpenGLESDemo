@@ -5,8 +5,9 @@ import android.opengl.GLES20;
 
 import com.android.hq.androidopenglesdemo.utils.Utils;
 
-import javax.microedition.khronos.egl.EGLConfig;
-import javax.microedition.khronos.opengles.GL10;
+/***
+ * 放大镜效果
+ */
 
 public class MagnFilter extends Filter {
     protected static final String U_XY = "u_XY";
