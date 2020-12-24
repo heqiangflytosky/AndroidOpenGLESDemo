@@ -16,17 +16,30 @@ import javax.microedition.khronos.egl.EGLConfig;
 import javax.microedition.khronos.opengles.GL10;
 
 public abstract class Filter {
+//    private static final float[] vertexData = {
+//            // Order of coordinates: X,Y,S,T
+//            // 第一个三角形
+//            -1f, -0.4f,  0f, 1f,
+//            1f, 0.4f,   1f, 0f,
+//            -1f, 0.4f,  0f, 0f,
+//
+//            // 第二个三角形
+//            -1f, -0.4f, 0f, 1f,
+//            1f, -0.4f, 1f, 1f,
+//            1f, 0.4f,1f, 0f
+//    };
+
     private static final float[] vertexData = {
             // Order of coordinates: X,Y,S,T
             // 第一个三角形
-            -1f, -0.4f,  0f, 1f,
-            1f, 0.4f,   1f, 0f,
-            -1f, 0.4f,  0f, 0f,
+            -1f, -1f,  0f, 1f,
+            1f, 1f,   1f, 0f,
+            -1f, 1f,  0f, 0f,
 
             // 第二个三角形
-            -1f, -0.4f, 0f, 1f,
-            1f, -0.4f, 1f, 1f,
-            1f, 0.4f,1f, 0f
+            -1f, -1f, 0f, 1f,
+            1f, -1f, 1f, 1f,
+            1f, 1f,1f, 0f
     };
     private static final int POSITION_COMPONENT_COUNT=2;
     private static final int TEXTURE_COORDINATES_COMPONENT_COUNT=2;

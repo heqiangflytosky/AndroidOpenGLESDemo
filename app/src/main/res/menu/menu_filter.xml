@@ -4,6 +4,9 @@
     <item android:id="@+id/mDeal"
         app:showAsAction="always"
         android:title="全部处理" />
+    <item android:id="@+id/mSave"
+        app:showAsAction="always"
+        android:title="保存图片" />
     <item android:id="@+id/mNoFilter"
         android:title="原图" />
     <item android:id="@+id/mGray"

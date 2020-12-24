@@ -5,19 +5,19 @@ import android.opengl.GLES20;
 
 import com.android.hq.androidopenglesdemo.utils.Utils;
 
+import javax.microedition.khronos.egl.EGLConfig;
+import javax.microedition.khronos.opengles.GL10;
+
 public class MagnFilter extends Filter {
     protected static final String U_XY = "u_XY";
     private float mXY;
     private int uXY;
     public MagnFilter(Context context) {
-//        super(context,
-//                Utils.assetsFileLoader(context,"filter/texture_multi_effect_vertex_shader.glsl"),
-//                Utils.assetsFileLoader(context,"filter/texture_multi_effect_fragment_shader.glsl"));
         super(context,
                 Utils.assetsFileLoader(context,"filter/vertex_shader.glsl"),
                 Utils.assetsFileLoader(context,"filter/fragment_shader_magn_filter.glsl"));
-        //mType = 4;
-        mXY = 0.5f;
+        mXY = ((ImageMultiEffectRenderer)((ImageMultiEffectActivity)context).getRenderer()).getTextureWidth()/
+                (float)((ImageMultiEffectRenderer)((ImageMultiEffectActivity)context).getRenderer()).getTextureHeight();
     }
     @Override
     public float[] getData() {

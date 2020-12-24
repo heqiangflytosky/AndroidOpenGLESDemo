@@ -3,15 +3,12 @@ package com.android.hq.androidopenglesdemo.texture;
 import android.content.Context;
 import android.opengl.GLES20;
 import android.opengl.GLSurfaceView;
+import android.os.Environment;
+import android.widget.Toast;
 
-import com.android.hq.androidopenglesdemo.R;
 import com.android.hq.androidopenglesdemo.utils.Constants;
-import com.android.hq.androidopenglesdemo.utils.ShaderHelper;
 import com.android.hq.androidopenglesdemo.utils.TextureHelper;
-import com.android.hq.androidopenglesdemo.utils.Utils;
 
-import java.nio.ByteBuffer;
-import java.nio.ByteOrder;
 import java.nio.FloatBuffer;
 
 import javax.microedition.khronos.egl.EGLConfig;
@@ -60,6 +57,9 @@ public class ImageMultiEffectRenderer implements GLSurfaceView.Renderer  {
     private boolean mIsHalf;
 
     private Filter mFilter;
+    private int mWidth;
+    private int mHeight;
+    private boolean mSavePicture = false;
 
     public ImageMultiEffectRenderer(Context context) {
         mContext = context;
@@ -134,6 +134,11 @@ public class ImageMultiEffectRenderer implements GLSurfaceView.Renderer  {
         doFilter();
         GLES20.glDrawArrays(GLES20.GL_TRIANGLES,0,6);
         */
+        if (mSavePicture) {
+            String path = Environment.getExternalStorageDirectory().getAbsolutePath()+"/" +System.currentTimeMillis()+".png";
+            TextureHelper.saveBitmap(path, mWidth, mHeight);
+            mSavePicture = false;
+        }
     }
 
 
@@ -169,6 +174,29 @@ public class ImageMultiEffectRenderer implements GLSurfaceView.Renderer  {
     public void setFilter(Filter filter) {
         mFilter = filter;
         mFilter.setHalfMode(mIsHalf);
+    }
+
+    public void savePicture(int width, int height) {
+        if (mSavePicture) {
+            Toast.makeText(mContext,"稍后再试",Toast.LENGTH_SHORT);
+            return;
+        }
+        mWidth = width;
+        mHeight = height;
+        mSavePicture = true;
+    }
+
+    public void updateTextureSize(int width, int height) {
+        mWidth = width;
+        mHeight = height;
+    }
+
+    public int getTextureWidth() {
+        return mWidth;
+    }
+
+    public int getTextureHeight() {
+        return mHeight;
     }
 
 }
