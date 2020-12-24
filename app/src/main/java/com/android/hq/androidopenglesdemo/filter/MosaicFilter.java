@@ -1,22 +1,22 @@
-package com.android.hq.androidopenglesdemo.texture;
+package com.android.hq.androidopenglesdemo.filter;
 
 import android.content.Context;
 
 import com.android.hq.androidopenglesdemo.utils.Utils;
 
-/**
- * 黑白色调效果
+/***
+ * 马赛克
  */
 
-public class GrayFilter extends Filter {
-    public GrayFilter(Context context) {
+public class MosaicFilter extends Filter {
+    public MosaicFilter(Context context) {
         super(context,
                 Utils.assetsFileLoader(context,"filter/vertex_shader.glsl"),
-                Utils.assetsFileLoader(context,"filter/fragment_shader_gray_filter.glsl"));
+                Utils.assetsFileLoader(context,"filter/fragment_shader_mosaic_filter.glsl"));
     }
     @Override
     public float[] getData() {
-        return new float[]{0.299f,0.587f,0.114f};
+        return new float[]{0, 0, 0};
     }
 
     @Override

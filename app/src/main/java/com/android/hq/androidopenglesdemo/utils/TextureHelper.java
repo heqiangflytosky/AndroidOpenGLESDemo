@@ -7,9 +7,8 @@ import android.graphics.Matrix;
 import android.opengl.GLES20;
 import android.opengl.GLUtils;
 import android.util.Log;
-import android.widget.Toast;
 
-import com.android.hq.androidopenglesdemo.texture.ImageMultiEffectActivity;
+import com.android.hq.androidopenglesdemo.filter.ImageMultiEffectActivity;
 
 import java.io.BufferedOutputStream;
 import java.io.FileNotFoundException;

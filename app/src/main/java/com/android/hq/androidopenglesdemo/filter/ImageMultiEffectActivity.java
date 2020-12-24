@@ -1,4 +1,4 @@
-package com.android.hq.androidopenglesdemo.texture;
+package com.android.hq.androidopenglesdemo.filter;
 
 import android.Manifest;
 import android.content.pm.PackageManager;

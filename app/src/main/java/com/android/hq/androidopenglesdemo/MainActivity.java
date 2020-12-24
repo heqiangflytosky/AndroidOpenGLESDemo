@@ -7,7 +7,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.os.Bundle;
 
 import com.android.hq.androidopenglesdemo.shape.SquareActivity;
-import com.android.hq.androidopenglesdemo.texture.ImageMultiEffectActivity;
+import com.android.hq.androidopenglesdemo.filter.ImageMultiEffectActivity;
 
 import java.util.ArrayList;
 

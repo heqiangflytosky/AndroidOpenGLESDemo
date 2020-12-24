@@ -1,22 +1,22 @@
-package com.android.hq.androidopenglesdemo.texture;
+package com.android.hq.androidopenglesdemo.filter;
 
 import android.content.Context;
 
 import com.android.hq.androidopenglesdemo.utils.Utils;
 
 /**
- * 模糊效果
+ * 黑白色调效果
  */
 
-public class BlurFilter extends Filter {
-    public BlurFilter(Context context) {
+public class GrayFilter extends Filter {
+    public GrayFilter(Context context) {
         super(context,
                 Utils.assetsFileLoader(context,"filter/vertex_shader.glsl"),
-                Utils.assetsFileLoader(context,"filter/fragment_shader_blur_filter.glsl"));
+                Utils.assetsFileLoader(context,"filter/fragment_shader_gray_filter.glsl"));
     }
     @Override
     public float[] getData() {
-        return new float[]{0.006f,0.004f,0.002f};
+        return new float[]{0.299f,0.587f,0.114f};
     }
 
     @Override
