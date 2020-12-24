@@ -88,6 +88,9 @@ public class ImageMultiEffectActivity extends BasicGLSurfaceViewActivity {
             case R.id.mTextWater:
                 mRenderer.setFilter(new WaterFilter(this));
                 break;
+            case R.id.mPlate:
+                mRenderer.setFilter(new PlateFilter(this));
+                break;
         }
         mGLSurfaceView.requestRender();
         return super.onOptionsItemSelected(item);
