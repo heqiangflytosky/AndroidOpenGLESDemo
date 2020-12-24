@@ -91,6 +91,10 @@ public class ImageMultiEffectActivity extends BasicGLSurfaceViewActivity {
             case R.id.mPlate:
                 mRenderer.setFilter(new PlateFilter(this));
                 break;
+
+            case R.id.mHalfTone:
+                mRenderer.setFilter(new HalfToneFilter(this));
+                break;
         }
         mGLSurfaceView.requestRender();
         return super.onOptionsItemSelected(item);

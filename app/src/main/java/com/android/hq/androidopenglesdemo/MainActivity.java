@@ -37,7 +37,7 @@ public class MainActivity extends AppCompatActivity {
                 getResources().getString(R.string.desc_fbo_activity), FBOActivity.class));
         list.add(new ListAdapter.DataBean(getResources().getString(R.string.title_image_multi_effect_activity),
                 getResources().getString(R.string.desc_image_multi_effect_activity), ImageMultiEffectActivity.class));
-        
+
         mListAdapter.updateData(list);
     }
 }
