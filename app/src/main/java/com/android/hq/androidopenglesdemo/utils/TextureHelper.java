@@ -20,6 +20,7 @@ import java.nio.ByteOrder;
 public class TextureHelper {
     public static int loadTexture(Context context, int resourceId){
         final int[] textureObjectIds = new int[2];
+        // 创建1个纹理
         GLES20.glGenTextures(1, textureObjectIds, 0);
 
         if (textureObjectIds[0] == 0){
@@ -36,7 +37,9 @@ public class TextureHelper {
             return 0;
         }
 
-        ((ImageMultiEffectActivity)context).updateViewSize(bitmap.getWidth(), bitmap.getHeight());
+        if (context instanceof ImageMultiEffectActivity) {
+            ((ImageMultiEffectActivity) context).updateViewSize(bitmap.getWidth(), bitmap.getHeight());
+        }
 
         GLES20.glBindTexture(GLES20.GL_TEXTURE_2D,textureObjectIds[0]);
 

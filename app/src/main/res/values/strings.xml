@@ -6,4 +6,7 @@
 
     <string name="title_square_activity">绘制基本图形</string>
     <string name="desc_square_activity">介绍点、线、三角形、正方形的绘制方法</string>
+
+    <string name="title_fbo_activity">FBO</string>
+    <string name="desc_fbo_activity">介绍FBO的使用</string>
 </resources>

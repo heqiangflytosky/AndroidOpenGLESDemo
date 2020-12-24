@@ -5,7 +5,7 @@ import android.content.Context;
 import com.android.hq.androidopenglesdemo.utils.Utils;
 
 /**
- * 黑白色调效果
+ * 底片效果
  */
 
 public class PlateFilter extends Filter {

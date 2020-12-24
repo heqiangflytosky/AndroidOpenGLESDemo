@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
 
+import com.android.hq.androidopenglesdemo.fbo.FBOActivity;
 import com.android.hq.androidopenglesdemo.shape.SquareActivity;
 import com.android.hq.androidopenglesdemo.filter.ImageMultiEffectActivity;
 
@@ -32,9 +33,11 @@ public class MainActivity extends AppCompatActivity {
         ArrayList<ListAdapter.DataBean> list = new ArrayList<>();
         list.add(new ListAdapter.DataBean(getResources().getString(R.string.title_square_activity),
                 getResources().getString(R.string.desc_square_activity), SquareActivity.class));
+        list.add(new ListAdapter.DataBean(getResources().getString(R.string.title_fbo_activity),
+                getResources().getString(R.string.desc_fbo_activity), FBOActivity.class));
         list.add(new ListAdapter.DataBean(getResources().getString(R.string.title_image_multi_effect_activity),
                 getResources().getString(R.string.desc_image_multi_effect_activity), ImageMultiEffectActivity.class));
-
+        
         mListAdapter.updateData(list);
     }
 }
