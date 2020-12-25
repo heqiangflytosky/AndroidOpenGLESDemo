@@ -11,7 +11,6 @@ import android.util.Log;
 import com.android.hq.androidopenglesdemo.R;
 import com.android.hq.androidopenglesdemo.utils.Constants;
 import com.android.hq.androidopenglesdemo.utils.ShaderHelper;
-import com.android.hq.androidopenglesdemo.utils.TextureHelper;
 import com.android.hq.androidopenglesdemo.utils.Utils;
 
 import java.nio.ByteBuffer;
@@ -40,8 +39,6 @@ public class FBORender implements GLSurfaceView.Renderer {
     protected static final String U_TEXTURE_UNIT = "u_TextureUnit";
     protected static final String A_POSITION = "a_Position";
     protected static final String A_TEXTURE_COORDINATES = "a_TextureCoordinates";
-    protected static final String U_CHANGE_COLOR = "u_ChangeColor";
-    protected static final String U_IS_HALF = "u_IsHalf";
 
     private FloatBuffer vertexDataBuffer;
     private int[] textureId;
@@ -50,10 +47,6 @@ public class FBORender implements GLSurfaceView.Renderer {
     private int uTextureUnitLocation;
     private int aPositionLocation;
     private int aTextureCoordinatesLocation;
-    private int uChangeColor;
-    private int uIsHalf;
-
-    private boolean mIsHalf;
 
     private Context mContext;
 
@@ -125,8 +118,6 @@ public class FBORender implements GLSurfaceView.Renderer {
         this.uTextureUnitLocation=GLES20.glGetUniformLocation(programeId,U_TEXTURE_UNIT);
         this.aPositionLocation=GLES20.glGetAttribLocation(programeId, A_POSITION);
         this.aTextureCoordinatesLocation= GLES20.glGetAttribLocation(programeId,A_TEXTURE_COORDINATES);
-        this.uChangeColor = GLES20.glGetUniformLocation(programeId, U_CHANGE_COLOR);
-        this.uIsHalf = GLES20.glGetUniformLocation(programeId, U_IS_HALF);
 
         GLES20.glUseProgram(programeId);
 

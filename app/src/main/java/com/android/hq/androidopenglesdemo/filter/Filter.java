@@ -163,16 +163,6 @@ public abstract class Filter {
         GLES20.glUniform1i(uIsHalf,mIsHalf ? 1 : 0);
     }
 
-//    public void setFilter(int type, float[] data) {
-//        mType = type;
-//        mData = data;
-//    }
-
-//    public void setDefaultFilter() {
-//        mType = 0;
-//        mData = new float[]{0.0f,0.0f,0.0f};
-//    }
-
     public void setHalfMode(boolean isHalf) {
         mIsHalf = isHalf;
     }
