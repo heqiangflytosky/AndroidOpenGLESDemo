@@ -71,6 +71,7 @@ public class ImageMultiEffectRenderer implements GLSurfaceView.Renderer  {
     public void updateTextureSize(int width, int height) {
         mWidth = width;
         mHeight = height;
+        mFilter.updateTextureSize(width,height);
     }
 
     public int getTextureWidth() {

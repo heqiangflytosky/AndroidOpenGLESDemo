@@ -29,4 +29,6 @@
         android:title="底片" />
     <item android:id="@+id/mHalfTone"
         android:title="半色调" />
+    <item android:id="@+id/mSketch"
+        android:title="素描" />
 </menu>

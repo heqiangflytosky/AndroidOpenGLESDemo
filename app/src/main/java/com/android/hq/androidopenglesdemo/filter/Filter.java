@@ -69,11 +69,14 @@ public abstract class Filter {
     //protected float mXY;
     private boolean mIsHalf;
 
-    private Context mContext;
+    protected Context mContext;
     private String mVertexShader;
     private String mFragmentShader;
 
     private boolean mIsInited;
+
+    protected int mTextureWidth;
+    protected int mTextureHeight;
 
     public Filter(Context context,String vertexShader, String fragmentShader) {
         mContext = context;
@@ -172,6 +175,11 @@ public abstract class Filter {
     }
 
     public void initFilter(){}
+
+    public void updateTextureSize(int width, int height) {
+        mTextureWidth = width;
+        mTextureHeight = height;
+    }
 
     public abstract float[] getData();
     public abstract void filter();
