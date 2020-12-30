@@ -55,7 +55,7 @@ void main()
         gl_FragColor = vec4(vec3(mag), 1.0f);
     } else {
         // 当前为处理一半模式时，x < 0 的部分都是原图效果
-        vec4 nColor = texture2D(u_TextureUnit, v_TextureCoordinates);
-        gl_FragColor = nColor;
+        vec2 textureCoordinatesFlip = vec2(v_TextureCoordinates.x, 1.0f - v_TextureCoordinates.y);
+        gl_FragColor = texture2D(u_TextureUnit, textureCoordinatesFlip);
     }
 }
