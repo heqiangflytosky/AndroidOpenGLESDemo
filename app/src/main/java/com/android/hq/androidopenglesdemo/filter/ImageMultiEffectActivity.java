@@ -125,20 +125,21 @@ public class ImageMultiEffectActivity extends BasicGLSurfaceViewActivity {
         mGLSurfaceView.post(new Runnable() {
             @Override
             public void run() {
-                int w = mGLSurfaceView.getWidth();
-                int h = mGLSurfaceView.getHeight();
-                if(width>0 && height>0){
-                    float textureAspect = ((float)width)/height;
-                    float viewAspect = ((float)w)/h;
-                    if(textureAspect > viewAspect){
-                        h = (int)(w * (1/textureAspect));
-                    }else{
-                        w = (int)(h * textureAspect);
-                    }
-                }
+                // 取消缩放，这样保存图片时可以按原来分辨率保存
+//                int w = mGLSurfaceView.getWidth();
+//                int h = mGLSurfaceView.getHeight();
+//                if(width>0 && height>0){
+//                    float textureAspect = ((float)width)/height;
+//                    float viewAspect = ((float)w)/h;
+//                    if(textureAspect > viewAspect){
+//                        h = (int)(w * (1/textureAspect));
+//                    }else{
+//                        w = (int)(h * textureAspect);
+//                    }
+//                }
                 ViewGroup.LayoutParams layoutParams = mGLSurfaceView.getLayoutParams();
-                layoutParams.width = w;
-                layoutParams.height = h;
+                layoutParams.width = width;
+                layoutParams.height = height;
                 mGLSurfaceView.setLayoutParams(layoutParams);
             }
         });
