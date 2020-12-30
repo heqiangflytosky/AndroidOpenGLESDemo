@@ -67,7 +67,7 @@ public abstract class Filter {
     //protected int mType = 0;
     //private float[] mData = new float[]{0.0f,0.0f,0.0f};
     //protected float mXY;
-    private boolean mIsHalf;
+    protected boolean mIsHalf;
 
     protected Context mContext;
     private String mVertexShader;
@@ -86,6 +86,9 @@ public abstract class Filter {
 
     public void init() {
         GLES20.glClearColor(0.0f,0,0,0);
+
+        // 加载纹理
+        textureId = TextureHelper.loadTexture(mContext, R.drawable.timg);
 
         vertexDataBuffer = ByteBuffer
                 .allocateDirect(vertexData.length * 4)
@@ -111,9 +114,6 @@ public abstract class Filter {
 
         GLES20.glUseProgram(programeId);
 
-        // 加载纹理
-        textureId = TextureHelper.loadTexture(mContext, R.drawable.timg);
-
         // 传递矩形顶点坐标
         vertexDataBuffer.position(0);
         GLES20.glVertexAttribPointer(aPositionLocation, POSITION_COMPONENT_COUNT, GLES20.GL_FLOAT, false, 16, vertexDataBuffer);
@@ -122,8 +122,6 @@ public abstract class Filter {
         vertexDataBuffer.position(POSITION_COMPONENT_COUNT);
         GLES20.glVertexAttribPointer(aTextureCoordinatesLocation, TEXTURE_COORDINATES_COMPONENT_COUNT, GLES20.GL_FLOAT, false, 16, vertexDataBuffer);
         GLES20.glEnableVertexAttribArray(aTextureCoordinatesLocation);
-
-        //setDefaultFilter();
     }
 
     public void onSurfaceCreated(GL10 gl, EGLConfig config) {
@@ -138,10 +136,7 @@ public abstract class Filter {
     }
 
     public void onDrawFrame() {
-        if (!mIsInited) {
-            this.init();
-            mIsInited = true;
-        }
+        checkInit();
 
         GLES20.glClear(GLES20.GL_COLOR_BUFFER_BIT);
 
@@ -156,6 +151,13 @@ public abstract class Filter {
         doFilter();
 
         GLES20.glDrawArrays(GLES20.GL_TRIANGLES,0,6);
+    }
+
+    protected void checkInit() {
+        if (!mIsInited) {
+            this.init();
+            mIsInited = true;
+        }
     }
 
     private void doFilter() {

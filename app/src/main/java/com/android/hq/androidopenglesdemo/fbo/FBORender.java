@@ -6,11 +6,14 @@ import android.graphics.BitmapFactory;
 import android.opengl.GLES20;
 import android.opengl.GLSurfaceView;
 import android.opengl.GLUtils;
+import android.os.Environment;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.android.hq.androidopenglesdemo.R;
 import com.android.hq.androidopenglesdemo.utils.Constants;
 import com.android.hq.androidopenglesdemo.utils.ShaderHelper;
+import com.android.hq.androidopenglesdemo.utils.TextureHelper;
 import com.android.hq.androidopenglesdemo.utils.Utils;
 
 import java.nio.ByteBuffer;
@@ -43,6 +46,7 @@ public class FBORender implements GLSurfaceView.Renderer {
     private FloatBuffer vertexDataBuffer;
     private int[] textureId;
     protected int programeId;
+    private int fboId[];
 
     private int uTextureUnitLocation;
     private int aPositionLocation;
@@ -75,8 +79,8 @@ public class FBORender implements GLSurfaceView.Renderer {
 
     @Override
     public void onDrawFrame(GL10 gl) {
+        GLES20.glBindFramebuffer(GLES20.GL_FRAMEBUFFER, fboId[0]);
         GLES20.glClear(GLES20.GL_COLOR_BUFFER_BIT);
-
         // 绘制纹理
         // 激活纹理单元，GL_TEXTURE0代表纹理单元0，GL_TEXTURE1代表纹理单元1，以此类推。OpenGL使用纹理单元来表示被绘制的纹理
         GLES20.glActiveTexture(GLES20.GL_TEXTURE0);
@@ -139,7 +143,7 @@ public class FBORender implements GLSurfaceView.Renderer {
     }
 
     private void initFrameBuffer(){
-        int fboId[] = new int[1];
+        fboId = new int[1];
         GLES20.glGenFramebuffers(1, fboId, 0);
 
         int[] fRender = new int[1];
@@ -155,12 +159,15 @@ public class FBORender implements GLSurfaceView.Renderer {
         GLES20.glFramebufferTexture2D(GLES20.GL_FRAMEBUFFER, GLES20.GL_COLOR_ATTACHMENT0,
                 GLES20.GL_TEXTURE_2D, textureId[1], 0);
 
-        GLES20.glGenRenderbuffers(1, fRender, 0);
-        GLES20.glBindRenderbuffer(GLES20.GL_RENDERBUFFER, fRender[0]);
-        GLES20.glRenderbufferStorage(GLES20.GL_RENDERBUFFER, GLES20.GL_DEPTH_COMPONENT16,
-                mWidth, mHeight);
-        GLES20.glFramebufferRenderbuffer(GLES20.GL_FRAMEBUFFER, GLES20.GL_DEPTH_ATTACHMENT,
-                GLES20.GL_RENDERBUFFER, fRender[0]);
+//        GLES20.glGenRenderbuffers(1, fRender, 0);
+//        GLES20.glBindRenderbuffer(GLES20.GL_RENDERBUFFER, fRender[0]);
+//        GLES20.glRenderbufferStorage(GLES20.GL_RENDERBUFFER, GLES20.GL_DEPTH_COMPONENT16,
+//                mWidth, mHeight);
+//        GLES20.glFramebufferRenderbuffer(GLES20.GL_FRAMEBUFFER, GLES20.GL_DEPTH_ATTACHMENT,
+//                GLES20.GL_RENDERBUFFER, fRender[0]);
+
+        GLES20.glBindTexture(GLES20.GL_TEXTURE_2D, 0);
+        GLES20.glBindFramebuffer(GLES20.GL_FRAMEBUFFER, 0);
     }
 
     private int[] loadTextures(Context context, int resourceId){
