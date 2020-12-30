@@ -23,20 +23,23 @@ void main()
 //        float c=nColor.r*u_ChangeColor.r+nColor.g*u_ChangeColor.g+nColor.b*u_ChangeColor.b;
 //        gl_FragColor=vec4(c, c, c, nColor.a);
 
+        // 1.先把左边上下翻转
+        vec2 textureCoordinatesFlip = vec2(v_TextureCoordinates.x, 1.0f - v_TextureCoordinates.y);
+
         // 2.再执行纹理采样
         vec2 widthStep = vec2(texelWidth, 0.0);
         vec2 heightStep = vec2(0.0, texelHeight);
         vec2 widthHeightStep = vec2(texelWidth, texelHeight);
         vec2 widthNegativeHeightStep = vec2(texelWidth, -texelHeight);
 
-        vec2 leftTextureCoordinate = v_TextureCoordinates.xy - widthStep;
-        vec2 rightTextureCoordinate = v_TextureCoordinates.xy + widthStep;
-        vec2 topTextureCoordinate = v_TextureCoordinates.xy - heightStep;
-        vec2 topLeftTextureCoordinate = v_TextureCoordinates.xy - widthHeightStep;
-        vec2 topRightTextureCoordinate = v_TextureCoordinates.xy + widthNegativeHeightStep;
-        vec2 bottomTextureCoordinate = v_TextureCoordinates.xy + heightStep;
-        vec2 bottomLeftTextureCoordinate = v_TextureCoordinates.xy - widthNegativeHeightStep;
-        vec2 bottomRightTextureCoordinate = v_TextureCoordinates.xy + widthHeightStep;
+        vec2 leftTextureCoordinate = textureCoordinatesFlip.xy - widthStep;
+        vec2 rightTextureCoordinate = textureCoordinatesFlip.xy + widthStep;
+        vec2 topTextureCoordinate = textureCoordinatesFlip.xy - heightStep;
+        vec2 topLeftTextureCoordinate = textureCoordinatesFlip.xy - widthHeightStep;
+        vec2 topRightTextureCoordinate = textureCoordinatesFlip.xy + widthNegativeHeightStep;
+        vec2 bottomTextureCoordinate = textureCoordinatesFlip.xy + heightStep;
+        vec2 bottomLeftTextureCoordinate = textureCoordinatesFlip.xy - widthNegativeHeightStep;
+        vec2 bottomRightTextureCoordinate = textureCoordinatesFlip.xy + widthHeightStep;
 
         float bottomLeftIntensity = texture2D(u_TextureUnit, bottomLeftTextureCoordinate).r;
         float topRightIntensity = texture2D(u_TextureUnit, topRightTextureCoordinate).r;

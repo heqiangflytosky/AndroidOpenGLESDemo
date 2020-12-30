@@ -22,7 +22,7 @@ public class SketchFilter extends Filter {
     private static final int POSITION_COMPONENT_COUNT=2;
     private static final int TEXTURE_COORDINATES_COMPONENT_COUNT=2;
 
-    // 第二个着色器
+    // 第一个着色器
     private static final float[] vertexData = {
             // Order of coordinates: X,Y,S,T
             // 第一个三角形
@@ -50,7 +50,6 @@ public class SketchFilter extends Filter {
     private int uniformTexelWidthLocation;
     private int uniformTexelHeightLocation;
 
-
     protected int uTextureUnitLocation2;
     protected int aPositionLocation2;
     protected int aTextureCoordinatesLocation2;
@@ -59,19 +58,19 @@ public class SketchFilter extends Filter {
 
     private float lineSize = 1.0f;
 
-    // 与 vertexData 相比，上下翻转图像
-    protected static final float[] vertexData2 = {
-            // Order of coordinates: X,Y,S,T
-            // 第一个三角形
-            -1f, -1f,  0f, 0f,
-            1f, 1f,   1f, 1f,
-            -1f, 1f,  0f, 1f,
-
-            // 第二个三角形
-            -1f, -1f, 0f, 0f,
-            1f, -1f, 1f, 0f,
-            1f, 1f,1f, 1f
-    };
+    // 与 vertexData 相比，上下翻转图像，或者在glsl中翻转
+//    protected static final float[] vertexData2 = {
+//            // Order of coordinates: X,Y,S,T
+//            // 第一个三角形
+//            -1f, -1f,  0f, 0f,
+//            1f, 1f,   1f, 1f,
+//            -1f, 1f,  0f, 1f,
+//
+//            // 第二个三角形
+//            -1f, -1f, 0f, 0f,
+//            1f, -1f, 1f, 0f,
+//            1f, 1f,1f, 1f
+//    };
     protected FloatBuffer vertexDataBuffer2;
 
     private int[] textureIds;
@@ -131,10 +130,10 @@ public class SketchFilter extends Filter {
         this.uniformTexelHeightLocation = GLES20.glGetUniformLocation(programeId2, TEXTURE_HEIGHT);
 
         vertexDataBuffer2 = ByteBuffer
-                .allocateDirect(vertexData2.length * 4)
+                .allocateDirect(vertexData.length * 4)
                 .order(ByteOrder.nativeOrder())
                 .asFloatBuffer()
-                .put(vertexData2);
+                .put(vertexData);
 
         initFrameBuffer();
     }
