@@ -7,7 +7,9 @@ import android.os.Build;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.view.ViewGroup;
+import android.widget.SeekBar;
 
 import androidx.annotation.NonNull;
 
@@ -16,17 +18,37 @@ import com.android.hq.androidopenglesdemo.R;
 
 public class ImageMultiEffectActivity extends BasicGLSurfaceViewActivity {
     private ImageMultiEffectRenderer mRenderer;
+    private SeekBar mSeekBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         checkPermission();
+        mSeekBar = findViewById(R.id.seekBar);
+        setSeekBar(mRenderer.getFilter());
+        mSeekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                ((ImageMultiEffectRenderer)getRenderer()).getFilter().onProgressChanged(progress);
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+
+            }
+        });
     }
 
     @Override
     public GLSurfaceView.Renderer getRenderer() {
         if (mRenderer == null) {
             mRenderer = new ImageMultiEffectRenderer(this);
+            mRenderer.setFilter(new NoFilter(this));
         }
         return mRenderer;
     }
@@ -54,35 +76,27 @@ public class ImageMultiEffectActivity extends BasicGLSurfaceViewActivity {
                 }
                 break;
             case R.id.mNoFilter:
-                //mRenderer.setDefaultFilter();
                 mRenderer.setFilter(new NoFilter(this));
                 break;
             case R.id.mGray:
-                //mRenderer.setFilter(1, new float[]{0.299f,0.587f,0.114f});
                 mRenderer.setFilter(new GrayFilter(this));
                 break;
             case R.id.mCool:
-                //mRenderer.setFilter(2, new float[]{0.0f,0.0f,0.1f});
                 mRenderer.setFilter(new CoolFilter(this));
                 break;
             case R.id.mWarm:
-                //mRenderer.setFilter(2, new float[]{0.1f,0.1f,0.0f});
                 mRenderer.setFilter(new WarmFilter(this));
                 break;
             case R.id.mBlur:
-                //mRenderer.setFilter(3, new float[]{0.006f,0.004f,0.002f});
                 mRenderer.setFilter(new BlurFilter(this));
                 break;
             case R.id.mMagn:
-                //mRenderer.setFilter(4, new float[]{0.0f,0.0f,0.4f});
                 mRenderer.setFilter(new MagnFilter(this));
                 break;
             case R.id.mRelief:
-                //mRenderer.setFilter(5, new float[]{0.2125f, 0.7154f, 0.0721f});
                 mRenderer.setFilter(new ReliefFilter(this));
                 break;
             case R.id.mMosaic:
-                //mRenderer.setFilter(6, new float[]{0, 0, 0});
                 mRenderer.setFilter(new MosaicFilter(this));
                 break;
             case R.id.mTextWater:
@@ -98,6 +112,7 @@ public class ImageMultiEffectActivity extends BasicGLSurfaceViewActivity {
                 mRenderer.setFilter(new SketchFilter(this));
                 break;
         }
+        setSeekBar(mRenderer.getFilter());
         mGLSurfaceView.requestRender();
         return super.onOptionsItemSelected(item);
     }
@@ -143,5 +158,18 @@ public class ImageMultiEffectActivity extends BasicGLSurfaceViewActivity {
                 mGLSurfaceView.setLayoutParams(layoutParams);
             }
         });
+    }
+
+    public void requestRender() {
+        mGLSurfaceView.requestRender();
+    }
+
+    private void setSeekBar(Filter filter) {
+        if (filter.canSeek()) {
+            mSeekBar.setVisibility(View.VISIBLE);
+            mSeekBar.setProgress(mRenderer.getFilter().getDefaultProgress());
+        } else {
+            mSeekBar.setVisibility(View.GONE);
+        }
     }
 }

@@ -245,4 +245,19 @@ public class SketchFilter extends Filter {
         GLES20.glBindFramebuffer(GLES20.GL_FRAMEBUFFER, 0);
     }
 
+    @Override
+    public boolean canSeek() {
+        return true;
+    }
+
+    @Override
+    public int getDefaultProgress() {
+        return (int)(lineSize*50);
+    }
+
+    @Override
+    public void onProgressChanged(int progress) {
+        lineSize = progress / 50f;
+        ((ImageMultiEffectActivity)mContext).requestRender();
+    }
 }

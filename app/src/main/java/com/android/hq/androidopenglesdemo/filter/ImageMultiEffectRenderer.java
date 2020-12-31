@@ -22,7 +22,6 @@ public class ImageMultiEffectRenderer implements GLSurfaceView.Renderer  {
 
     public ImageMultiEffectRenderer(Context context) {
         mContext = context;
-        mFilter = new NoFilter(context);
     }
     @Override
     public void onSurfaceCreated(GL10 gl, EGLConfig config) {
@@ -56,6 +55,10 @@ public class ImageMultiEffectRenderer implements GLSurfaceView.Renderer  {
     public void setFilter(Filter filter) {
         mFilter = filter;
         mFilter.setHalfMode(mIsHalf);
+    }
+
+    public Filter getFilter() {
+        return mFilter;
     }
 
     public void savePicture(int width, int height) {

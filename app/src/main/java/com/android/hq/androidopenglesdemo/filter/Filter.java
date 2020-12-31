@@ -59,14 +59,9 @@ public abstract class Filter {
     private int uTextureUnitLocation;
     private int aPositionLocation;
     private int aTextureCoordinatesLocation;
-    //private int uChangeType;
     private int uChangeColor;
-    //private int uXY;
     private int uIsHalf;
 
-    //protected int mType = 0;
-    //private float[] mData = new float[]{0.0f,0.0f,0.0f};
-    //protected float mXY;
     protected boolean mIsHalf;
 
     protected Context mContext;
@@ -77,6 +72,8 @@ public abstract class Filter {
 
     protected int mTextureWidth;
     protected int mTextureHeight;
+    // 0-100
+    protected int mProgress;
 
     public Filter(Context context,String vertexShader, String fragmentShader) {
         mContext = context;
@@ -105,9 +102,7 @@ public abstract class Filter {
         this.uTextureUnitLocation=GLES20.glGetUniformLocation(programeId,U_TEXTURE_UNIT);
         this.aPositionLocation=GLES20.glGetAttribLocation(programeId, A_POSITION);
         this.aTextureCoordinatesLocation= GLES20.glGetAttribLocation(programeId,A_TEXTURE_COORDINATES);
-        //this.uChangeType = GLES20.glGetUniformLocation(programeId, U_CHANGE_TYPE);
         this.uChangeColor = GLES20.glGetUniformLocation(programeId, U_CHANGE_COLOR);
-        //this.uXY = GLES20.glGetUniformLocation(programeId, U_XY);
         this.uIsHalf = GLES20.glGetUniformLocation(programeId, U_IS_HALF);
 
         initFilter();
@@ -132,7 +127,6 @@ public abstract class Filter {
 
     public void onSurfaceChanged(GL10 gl, int width, int height) {
         GLES20.glViewport(0,0,width,height);
-        //mXY = width/(float)height;
     }
 
     public void onDrawFrame() {
@@ -161,9 +155,7 @@ public abstract class Filter {
     }
 
     private void doFilter() {
-        //GLES20.glUniform1i(uChangeType, mType);
         GLES20.glUniform3fv(uChangeColor,1,getData(),0);
-        //GLES20.glUniform1f(uXY,mXY);
         filter();
         GLES20.glUniform1i(uIsHalf,mIsHalf ? 1 : 0);
     }
@@ -181,6 +173,18 @@ public abstract class Filter {
     public void updateTextureSize(int width, int height) {
         mTextureWidth = width;
         mTextureHeight = height;
+    }
+
+    public boolean canSeek() {
+        return false;
+    }
+
+    public int getDefaultProgress() {
+        return 50;
+    }
+
+    public void onProgressChanged(int progress) {
+        mProgress = progress;
     }
 
     public abstract float[] getData();
