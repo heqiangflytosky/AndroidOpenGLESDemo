@@ -258,6 +258,6 @@ public class SketchFilter extends Filter {
     @Override
     public void onProgressChanged(int progress) {
         lineSize = progress / 50f;
-        ((ImageMultiEffectActivity)mContext).requestRender();
+        super.onProgressChanged(progress);
     }
 }

@@ -72,8 +72,6 @@ public abstract class Filter {
 
     protected int mTextureWidth;
     protected int mTextureHeight;
-    // 0-100
-    protected int mProgress;
 
     public Filter(Context context,String vertexShader, String fragmentShader) {
         mContext = context;
@@ -184,7 +182,9 @@ public abstract class Filter {
     }
 
     public void onProgressChanged(int progress) {
-        mProgress = progress;
+        if (canSeek()) {
+            ((ImageMultiEffectActivity)mContext).requestRender();
+        }
     }
 
     public abstract float[] getData();

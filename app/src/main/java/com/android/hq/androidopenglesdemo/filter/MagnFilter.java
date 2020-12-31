@@ -11,8 +11,11 @@ import com.android.hq.androidopenglesdemo.utils.Utils;
 
 public class MagnFilter extends Filter {
     protected static final String U_XY = "u_XY";
+    protected static final String U_RADIUS = "u_Radius";
     private float mXY;
     private int uXY;
+    private float mRadius = 0.4f;
+    private int uRadius;
     public MagnFilter(Context context) {
         super(context,
                 Utils.assetsFileLoader(context,"filter/vertex_shader.glsl"),
@@ -22,16 +25,34 @@ public class MagnFilter extends Filter {
     }
     @Override
     public float[] getData() {
-        return new float[]{0.0f,0.0f,0.4f};
+        return new float[]{0.0f,0.0f,0.0f};
     }
 
     @Override
     public void filter() {
         GLES20.glUniform1f(uXY,mXY);
+        GLES20.glUniform1f(uRadius,mRadius);
     }
 
     @Override
     public void initFilter() {
-        this.uXY = GLES20.glGetUniformLocation(programeId, U_XY);
+        uXY = GLES20.glGetUniformLocation(programeId, U_XY);
+        uRadius = GLES20.glGetUniformLocation(programeId, U_RADIUS);
+    }
+
+    @Override
+    public boolean canSeek() {
+        return true;
+    }
+
+    @Override
+    public int getDefaultProgress() {
+        return (int)(mRadius * 100);
+    }
+
+    @Override
+    public void onProgressChanged(int progress) {
+        mRadius = progress/100f;
+        super.onProgressChanged(progress);
     }
 }

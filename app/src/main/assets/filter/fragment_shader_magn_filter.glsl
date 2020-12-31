@@ -2,11 +2,13 @@
 precision mediump float;
 
 uniform sampler2D u_TextureUnit;
-uniform vec3 u_ChangeColor;
-uniform float u_XY; // 图像宽高比
 varying vec2 v_TextureCoordinates;
 varying vec4 v_Position;
 uniform bool u_IsHalf;  // 是否是处理一半
+
+uniform float u_XY; // 图像宽高比
+uniform float u_Radius; // 放大镜半径
+const highp vec2 Center = vec2(0f, 0f); // 放大镜圆心位置
 
 void main()
 {
@@ -15,8 +17,8 @@ void main()
         // 2. 处理全部效果时，都走这里
         // 放大镜效果
         vec4 nColor = texture2D(u_TextureUnit, v_TextureCoordinates);
-        float dis=distance(vec2(v_Position.x,v_Position.y/u_XY),vec2(u_ChangeColor.r,u_ChangeColor.g));
-        if(dis<u_ChangeColor.b){
+        float dis=distance(vec2(v_Position.x,v_Position.y/u_XY),Center);
+        if(dis<u_Radius){
             nColor=texture2D(u_TextureUnit,vec2(v_TextureCoordinates.x/2.0+0.25,v_TextureCoordinates.y/2.0+0.25));
         }
         gl_FragColor=nColor;
