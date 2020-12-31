@@ -11,7 +11,7 @@ void main()
     if (v_Position.x > 0.0 || !u_IsHalf) {
         // 1. 处理一半效果时，x > 0 时走这里
         // 2. 处理全部效果时，都走这里
-        // 底片效果
+        // 底片效果，反色处理
         vec4 nColor = texture2D(u_TextureUnit, v_TextureCoordinates);
         gl_FragColor = vec4(1.0 - nColor.r, 1.0 - nColor.g, 1.0 - nColor.b, nColor.a);;
     } else {

@@ -15,7 +15,7 @@ void main()
     if (v_Position.x > 0.0 || !u_IsHalf) {
         // 1. 处理一半效果时，x > 0 时走这里
         // 2. 处理全部效果时，都走这里
-        // 放大镜效果
+        // 放大镜效果，放大一倍
         vec4 nColor = texture2D(u_TextureUnit, v_TextureCoordinates);
         float dis=distance(vec2(v_Position.x,v_Position.y/u_XY),Center);
         if(dis<u_Radius){

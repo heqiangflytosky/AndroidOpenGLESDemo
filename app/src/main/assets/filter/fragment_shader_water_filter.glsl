@@ -12,7 +12,6 @@ void main()
     // 水印效果时
     vec4 nColor = texture2D(u_TextureUnit, v_TextureCoordinates);
     vec4 nWater = texture2D(u_TextureWater, v_TextureWateCoordinates);
-    //gl_FragColor = mix(nColor, nWater, 0.5);
-    //gl_FragColor = nWater;
-    gl_FragColor = nColor + nWater;
+    //gl_FragColor = nColor + nWater; //这种方式水印颜色不对，会呈现混合效果
+    gl_FragColor = mix(nColor, nWater, nWater.a);
 }
