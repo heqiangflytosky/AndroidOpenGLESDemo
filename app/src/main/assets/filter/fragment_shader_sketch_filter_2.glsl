@@ -23,7 +23,7 @@ void main()
 //        float c=nColor.r*u_ChangeColor.r+nColor.g*u_ChangeColor.g+nColor.b*u_ChangeColor.b;
 //        gl_FragColor=vec4(c, c, c, nColor.a);
 
-        // 1.先把左边上下翻转
+        // 1.先把坐标上下翻转
         vec2 textureCoordinatesFlip = vec2(v_TextureCoordinates.x, 1.0f - v_TextureCoordinates.y);
 
         // 2.再执行纹理采样
@@ -55,6 +55,7 @@ void main()
         gl_FragColor = vec4(vec3(mag), 1.0f);
     } else {
         // 当前为处理一半模式时，x < 0 的部分都是原图效果
+        // 先把坐标上下翻转
         vec2 textureCoordinatesFlip = vec2(v_TextureCoordinates.x, 1.0f - v_TextureCoordinates.y);
         gl_FragColor = texture2D(u_TextureUnit, textureCoordinatesFlip);
     }
